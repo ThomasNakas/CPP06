@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 19:34:17 by tnakas            #+#    #+#             */
-/*   Updated: 2025/02/21 14:08:40 by tnakas           ###   ########.fr       */
+/*   Updated: 2025/02/21 14:21:10 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,71 +84,64 @@ void ScalarConverter::convert(const std::string& literal)
 	float floatVal = 0.0f;
 	double doubleVal = 0.0;
 
-	try
+
+	if (isChar(literal))
 	{
-		if (isChar(literal))
+		charVal = literal[0];
+		intVal = static_cast<int>(charVal);
+		floatVal = static_cast<float>(charVal);
+		doubleVal = static_cast<double>(charVal);
+	}
+	else if(isInt(literal))
+	{
+		try
 		{
-			charVal = literal[0];
-			intVal = static_cast<int>(charVal);
-			floatVal = static_cast<float>(charVal);
-			doubleVal = static_cast<double>(charVal);
+			intVal = std::stoi(literal);
+			charVal = static_cast<char>(intVal);
+			floatVal = static_cast<float>(intVal);
+			doubleVal = static_cast<double>(intVal);
 		}
-		else if(isInt(literal))
+		catch (const std::out_of_range&)
 		{
-			try
-			{
-				intVal = std::stoi(literal);
-				charVal = static_cast<char>(intVal);
-				floatVal = static_cast<float>(intVal);
-				doubleVal = static_cast<double>(intVal);
-			}
-			catch (const std::out_of_range&)
-			{
-				std::cout << "int: overflow" << std::endl;
-				return;
-			}
-		}
-		else if(isFloat(literal))
-		{
-			try
-			{
-				floatVal = std::stof(literal);
-				intVal = static_cast<int>(floatVal);
-				charVal = static_cast<char>(intVal);
-				doubleVal = static_cast<double>(intVal);
-			}
-			catch (const std::out_of_range&)
-			{
-				std::cout << "float: overflow" << std::endl;
-				return;
-			}
-		}
-		else if(isDouble(literal))
-		{
-			try
-			{
-				doubleVal = std::stod(literal);
-				intVal = static_cast<int>(doubleVal);
-				charVal = static_cast<char>(intVal);
-				floatVal = static_cast<float>(doubleVal);
-			}
-			catch (const std::out_of_range&)
-			{
-				std::cout << "double: overflow" << std::endl;
-				return;
-			}
-		}
-		else
-		{
-			std::cerr << "Error: Invalid input format" << std::endl;
+			std::cout << "int: overflow" << std::endl;
 			return;
 		}
-		
 	}
-	catch(const std::exception& e)
+	else if(isFloat(literal))
 	{
-		std::cout << "Error: " << e.what() << std::endl;
+		try
+		{
+			floatVal = std::stof(literal);
+			intVal = static_cast<int>(floatVal);
+			charVal = static_cast<char>(intVal);
+			doubleVal = static_cast<double>(floatVal);
+		}
+		catch (const std::out_of_range&)
+		{
+			std::cout << "float: overflow" << std::endl;
+			return;
+		}
+	}
+	else if(isDouble(literal))
+	{
+		try
+		{
+			doubleVal = std::stod(literal);
+			intVal = static_cast<int>(doubleVal);
+			charVal = static_cast<char>(intVal);
+			floatVal = static_cast<float>(doubleVal);
+		}
+		catch (const std::out_of_range&)
+		{
+			std::cout << "double: overflow" << std::endl;
+			return;
+		}
+	}
+	else
+	{
+		std::cerr << "Error: Invalid input format" << std::endl;
 		return;
 	}
+
 	printConversion(charVal, intVal, floatVal, doubleVal);
 }
