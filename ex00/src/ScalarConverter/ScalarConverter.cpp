@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 19:34:17 by tnakas            #+#    #+#             */
-/*   Updated: 2025/02/20 21:47:09 by tnakas           ###   ########.fr       */
+/*   Updated: 2025/02/21 14:08:40 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,24 +95,48 @@ void ScalarConverter::convert(const std::string& literal)
 		}
 		else if(isInt(literal))
 		{
-			intVal = std::stoi(literal);
-			charVal = static_cast<char>(charVal);
-			floatVal = static_cast<float>(charVal);
-			doubleVal = static_cast<double>(charVal);
+			try
+			{
+				intVal = std::stoi(literal);
+				charVal = static_cast<char>(intVal);
+				floatVal = static_cast<float>(intVal);
+				doubleVal = static_cast<double>(intVal);
+			}
+			catch (const std::out_of_range&)
+			{
+				std::cout << "int: overflow" << std::endl;
+				return;
+			}
 		}
 		else if(isFloat(literal))
 		{
-			floatVal = std::stof(literal);
-			intVal = static_cast<int>(charVal);
-			charVal = static_cast<char>(charVal);
-			doubleVal = static_cast<double>(charVal);
+			try
+			{
+				floatVal = std::stof(literal);
+				intVal = static_cast<int>(floatVal);
+				charVal = static_cast<char>(intVal);
+				doubleVal = static_cast<double>(intVal);
+			}
+			catch (const std::out_of_range&)
+			{
+				std::cout << "float: overflow" << std::endl;
+				return;
+			}
 		}
 		else if(isDouble(literal))
 		{
-			doubleVal = std::stod(literal);
-			intVal = static_cast<int>(charVal);
-			charVal = static_cast<char>(charVal);
-			floatVal = static_cast<float>(charVal);
+			try
+			{
+				doubleVal = std::stod(literal);
+				intVal = static_cast<int>(doubleVal);
+				charVal = static_cast<char>(intVal);
+				floatVal = static_cast<float>(doubleVal);
+			}
+			catch (const std::out_of_range&)
+			{
+				std::cout << "double: overflow" << std::endl;
+				return;
+			}
 		}
 		else
 		{
