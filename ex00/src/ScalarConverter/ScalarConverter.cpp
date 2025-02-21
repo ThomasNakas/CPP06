@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 19:34:17 by tnakas            #+#    #+#             */
-/*   Updated: 2025/02/21 15:26:36 by tnakas           ###   ########.fr       */
+/*   Updated: 2025/02/21 16:26:40 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,35 @@ void ScalarConverter::printConversion(char charVal, int intVal, float floatVal, 
 	std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
 }
 
+void ScalarConverter::charOverFlow(const std::string& literal)
+{
+			long long tempInt = std::stoll(literal);
+			int intVal = static_cast<int>(tempInt);
+			float floatVal = std::stof(literal);
+			double doubleVal = static_cast<double>(floatVal);
+			std::cout << "char: Not Displayable" << std::endl;
+			std::cout << "int: " << intVal << std::endl;
+			std::cout << "float: " << std::fixed << std::setprecision(1) << floatVal << "f" << std::endl;
+			std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+}
+void ScalarConverter::intOverFlow(const std::string& literal)
+{
+	std::cout << "char: Not Displayable" << std::endl;
+	std::cout << "int: overflow" << std::endl;
+	float floatVal = std::stof(literal);
+	double doubleVal = static_cast<double>(floatVal);
+	std::cout << "float: " << std::fixed << std::setprecision(1) << floatVal << "f" << std::endl;
+	std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+}
+
+void ScalarConverter::floatOverFlow(const std::string& literal)
+{
+			std::cout << "char: Not Displayable" << std::endl;
+			std::cout << "int: overflow" << std::endl;
+			std::cout << "float: overflow" << std::endl;
+			double doubleVal = std::stof(literal);
+			std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+}
 void ScalarConverter::convert(const std::string& literal)
 {
 	char charVal = 0;
@@ -99,31 +128,28 @@ void ScalarConverter::convert(const std::string& literal)
 	}
 	else if(isInt(literal))
 	{
-
 		long long tempInt = std::stoll(literal);
 		if (tempInt > max_int || tempInt < min_int)
 		{
-			std::cout << "char: Not Displayable" << std::endl;
-			std::cout << "int: overflow" << std::endl;
-			floatVal = std::stof(literal);
-			doubleVal = static_cast<double>(floatVal);
-			std::cout << "float: " << std::fixed << std::setprecision(1) << floatVal << "f" << std::endl;
-			std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+			intOverFlow(literal);
 			return ;
 		}
 		intVal = static_cast<int>(tempInt);
+		if (intVal > 127 || intVal < 0)
+		{
+			charOverFlow(literal);
+			return ;
+		}
 		charVal = static_cast<char>(intVal);
+		floatVal = static_cast<float>(intVal);
+		doubleVal = static_cast<double>(intVal);
 	}
 	else if(isFloat(literal))
 	{
 		//bigger than float
 		if(std::stod(literal) > max_float || std::stod(literal) < min_float)
 		{
-			std::cout << "char: Not Displayable" << std::endl;
-			std::cout << "int: overflow" << std::endl;
-			std::cout << "float: overflow" << std::endl;
-			doubleVal = std::stof(literal);
-			std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+			floatOverFlow(literal);
 			return ;
 		}
 		else
@@ -133,27 +159,25 @@ void ScalarConverter::convert(const std::string& literal)
 			long long tempInt = std::stoll(literal);
 			if (tempInt > max_int || tempInt < min_int)
 			{
-				std::cout << "char: Not Displayable" << std::endl;
-				std::cout << "int: overflow" << std::endl;
-				std::cout << "float: " << std::fixed << std::setprecision(1) << floatVal << "f" << std::endl;
-				std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+				intOverFlow(literal);
 				return ;
 			}
 		}
-		floatVal = std::stof(literal);
-		intVal = static_cast<int>(floatVal);
+		intVal = std::stoi(literal);
+		if (intVal > 127 || intVal < 0)
+		{
+			charOverFlow(literal);
+			return ;
+		}
 		charVal = static_cast<char>(intVal);
-		doubleVal = static_cast<double>(floatVal);
+		floatVal = static_cast<float>(intVal);
+		doubleVal = static_cast<double>(intVal);
 	}
 	else if(isDouble(literal))
 	{
 		if(std::stod(literal) > max_float || std::stod(literal) < min_float)
 		{
-			std::cout << "char: Not Displayable" << std::endl;
-			std::cout << "int: overflow" << std::endl;
-			std::cout << "float: overflow" << std::endl;
-			doubleVal = std::stof(literal);
-			std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+			floatOverFlow(literal);
 			return ;
 		}
 		else
@@ -163,17 +187,19 @@ void ScalarConverter::convert(const std::string& literal)
 			long long tempInt = std::stoll(literal);
 			if (tempInt > max_int || tempInt < min_int)
 			{
-				std::cout << "char: Not Displayable" << std::endl;
-				std::cout << "int: overflow" << std::endl;
-				std::cout << "float: " << std::fixed << std::setprecision(1) << floatVal << "f" << std::endl;
-				std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+				intOverFlow(literal);
 				return ;
 			}
 		}
-		doubleVal = std::stod(literal);
-		intVal = static_cast<int>(doubleVal);
+		intVal = std::stoi(literal);
+		if (intVal > 127 || intVal < 0)
+		{
+			charOverFlow(literal);
+			return ;
+		}
 		charVal = static_cast<char>(intVal);
-		floatVal = static_cast<float>(doubleVal);
+		floatVal = static_cast<float>(intVal);
+		doubleVal = static_cast<double>(intVal);
 	}
 	else
 	{

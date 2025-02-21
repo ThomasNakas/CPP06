@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 19:34:07 by tnakas            #+#    #+#             */
-/*   Updated: 2025/02/20 19:44:29 by tnakas           ###   ########.fr       */
+/*   Updated: 2025/02/21 16:17:15 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ class ScalarConverter
 	static bool isInt(const std::string& str);
 	static bool isFloat(const std::string& str);
 	static bool isDouble(const std::string& str);
+	//Overflow handlers
+	static void charOverFlow(const std::string& literal);
+	static void intOverFlow(const std::string& literal);
+	static void floatOverFlow(const std::string& literal);
 	//Conversion
 	static void printConversion(char charVal, int intVal, float floatVal, double doubleVal);
 	public:
