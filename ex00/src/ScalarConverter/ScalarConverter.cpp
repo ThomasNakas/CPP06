@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 19:34:17 by tnakas            #+#    #+#             */
-/*   Updated: 2025/02/21 14:21:10 by tnakas           ###   ########.fr       */
+/*   Updated: 2025/02/21 15:26:36 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,8 @@ void ScalarConverter::printConversion(char charVal, int intVal, float floatVal, 
 	else std::cout << "char: Non Displayable" << std::endl;
 
 	std::cout << "int: " << intVal << std::endl;
-	std::cout << std::fixed << std::setprecision(1);
-	std::cout << "float: " << floatVal << "f" << std::endl;
-	std::cout << "double: " << doubleVal << std::endl;
+	std::cout << "float: " << std::fixed << std::setprecision(1) << floatVal << "f" << std::endl;
+	std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
 }
 
 void ScalarConverter::convert(const std::string& literal)
@@ -83,7 +82,13 @@ void ScalarConverter::convert(const std::string& literal)
 	int intVal = 0;
 	float floatVal = 0.0f;
 	double doubleVal = 0.0;
-
+	//limits
+	//int
+	int min_int = std::numeric_limits<int>::min();
+	int max_int = std::numeric_limits<int>::max();
+	//float
+	float min_float = std::numeric_limits<float>::min();
+	float max_float = std::numeric_limits<float>::max();
 
 	if (isChar(literal))
 	{
@@ -94,48 +99,81 @@ void ScalarConverter::convert(const std::string& literal)
 	}
 	else if(isInt(literal))
 	{
-		try
+
+		long long tempInt = std::stoll(literal);
+		if (tempInt > max_int || tempInt < min_int)
 		{
-			intVal = std::stoi(literal);
-			charVal = static_cast<char>(intVal);
-			floatVal = static_cast<float>(intVal);
-			doubleVal = static_cast<double>(intVal);
-		}
-		catch (const std::out_of_range&)
-		{
+			std::cout << "char: Not Displayable" << std::endl;
 			std::cout << "int: overflow" << std::endl;
-			return;
+			floatVal = std::stof(literal);
+			doubleVal = static_cast<double>(floatVal);
+			std::cout << "float: " << std::fixed << std::setprecision(1) << floatVal << "f" << std::endl;
+			std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+			return ;
 		}
+		intVal = static_cast<int>(tempInt);
+		charVal = static_cast<char>(intVal);
 	}
 	else if(isFloat(literal))
 	{
-		try
+		//bigger than float
+		if(std::stod(literal) > max_float || std::stod(literal) < min_float)
+		{
+			std::cout << "char: Not Displayable" << std::endl;
+			std::cout << "int: overflow" << std::endl;
+			std::cout << "float: overflow" << std::endl;
+			doubleVal = std::stof(literal);
+			std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+			return ;
+		}
+		else
 		{
 			floatVal = std::stof(literal);
-			intVal = static_cast<int>(floatVal);
-			charVal = static_cast<char>(intVal);
 			doubleVal = static_cast<double>(floatVal);
+			long long tempInt = std::stoll(literal);
+			if (tempInt > max_int || tempInt < min_int)
+			{
+				std::cout << "char: Not Displayable" << std::endl;
+				std::cout << "int: overflow" << std::endl;
+				std::cout << "float: " << std::fixed << std::setprecision(1) << floatVal << "f" << std::endl;
+				std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+				return ;
+			}
 		}
-		catch (const std::out_of_range&)
-		{
-			std::cout << "float: overflow" << std::endl;
-			return;
-		}
+		floatVal = std::stof(literal);
+		intVal = static_cast<int>(floatVal);
+		charVal = static_cast<char>(intVal);
+		doubleVal = static_cast<double>(floatVal);
 	}
 	else if(isDouble(literal))
 	{
-		try
+		if(std::stod(literal) > max_float || std::stod(literal) < min_float)
 		{
-			doubleVal = std::stod(literal);
-			intVal = static_cast<int>(doubleVal);
-			charVal = static_cast<char>(intVal);
-			floatVal = static_cast<float>(doubleVal);
+			std::cout << "char: Not Displayable" << std::endl;
+			std::cout << "int: overflow" << std::endl;
+			std::cout << "float: overflow" << std::endl;
+			doubleVal = std::stof(literal);
+			std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+			return ;
 		}
-		catch (const std::out_of_range&)
+		else
 		{
-			std::cout << "double: overflow" << std::endl;
-			return;
+			floatVal = std::stof(literal);
+			doubleVal = static_cast<double>(floatVal);
+			long long tempInt = std::stoll(literal);
+			if (tempInt > max_int || tempInt < min_int)
+			{
+				std::cout << "char: Not Displayable" << std::endl;
+				std::cout << "int: overflow" << std::endl;
+				std::cout << "float: " << std::fixed << std::setprecision(1) << floatVal << "f" << std::endl;
+				std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+				return ;
+			}
 		}
+		doubleVal = std::stod(literal);
+		intVal = static_cast<int>(doubleVal);
+		charVal = static_cast<char>(intVal);
+		floatVal = static_cast<float>(doubleVal);
 	}
 	else
 	{
