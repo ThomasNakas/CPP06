@@ -6,13 +6,14 @@
 #    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 22:10:07 by tnakas            #+#    #+#              #
-#    Updated: 2025/02/20 23:26:27 by tnakas           ###   ########.fr        #
+#    Updated: 2025/02/23 00:48:27 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        = obj/Base.out
 SRC_DIR     = src
 OBJ_DIR     = obj
+
 
 SRC         = $(SRC_DIR)/main.cpp \
               $(SRC_DIR)/Base/Base.cpp \
