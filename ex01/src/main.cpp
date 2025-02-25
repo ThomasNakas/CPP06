@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 22:15:33 by tnakas            #+#    #+#             */
-/*   Updated: 2025/02/21 16:33:07 by tnakas           ###   ########.fr       */
+/*   Updated: 2025/02/25 11:48:16 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int main()
 {
+	//using the struct
 	Data original;
 	original.name = "John Doe";
 	original.age = 30;
