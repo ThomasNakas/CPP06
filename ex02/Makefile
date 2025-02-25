@@ -6,11 +6,11 @@
 #    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 22:10:07 by tnakas            #+#    #+#              #
-#    Updated: 2025/02/25 11:41:15 by tnakas           ###   ########.fr        #
+#    Updated: 2025/02/25 11:43:54 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME        = obj/identifier
+NAME        = obj/id
 SRC_DIR     = src
 OBJ_DIR     = obj
 
