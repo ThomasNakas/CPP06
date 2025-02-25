@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 19:34:17 by tnakas            #+#    #+#             */
-/*   Updated: 2025/02/25 12:59:39 by tnakas           ###   ########.fr       */
+/*   Updated: 2025/02/25 13:13:41 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,42 +99,21 @@ void ScalarConverter::intOverFlow(const std::string& literal)
 
 void ScalarConverter::floatOverFlow(const std::string& literal)
 {
-			if (literal == "+inff")
+			if (literal == "+inff" || literal == "+inf")
 			{
 				std::cout << "char: Not Displayable" << std::endl;
 				std::cout << "int: overflow" << std::endl;
 				std::cout << "float: +inff" << std::endl;
 				std::cout << "float: +inf" << std::endl;
 			}
-			else if (literal == "-inff")
+			else if (literal == "-inff" || literal == "-inf")
 			{
 				std::cout << "char: Not Displayable" << std::endl;
 				std::cout << "int: overflow" << std::endl;
 				std::cout << "float: -inff" << std::endl;
 				std::cout << "float: -inf" << std::endl;
 			}
-			else if (literal == "nanf")
-			{
-				std::cout << "char: Not Displayable" << std::endl;
-				std::cout << "int: overflow" << std::endl;
-				std::cout << "float: nanf" << std::endl;
-				std::cout << "float: nan" << std::endl;
-			}
-			else if (literal == "+inf")
-			{
-				std::cout << "char: Not Displayable" << std::endl;
-				std::cout << "int: overflow" << std::endl;
-				std::cout << "float: +inff" << std::endl;
-				std::cout << "float: +inf" << std::endl;
-			}
-			else if (literal == "-inf")
-			{
-				std::cout << "char: Not Displayable" << std::endl;
-				std::cout << "int: overflow" << std::endl;
-				std::cout << "float: -inff" << std::endl;
-				std::cout << "float: -inf" << std::endl;
-			}
-			else if (literal == "nan")
+			else if (literal == "nanf" || literal == "nan")
 			{
 				std::cout << "char: Not Displayable" << std::endl;
 				std::cout << "int: overflow" << std::endl;
