@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 22:44:43 by tnakas            #+#    #+#             */
-/*   Updated: 2025/02/20 22:54:57 by tnakas           ###   ########.fr       */
+/*   Updated: 2025/02/25 13:40:48 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "../Derived/A.hpp"
 #include "../Derived/B.hpp"
 #include "../Derived/C.hpp"
+#include "../Derived/D.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
