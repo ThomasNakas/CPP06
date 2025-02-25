@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 19:34:17 by tnakas            #+#    #+#             */
-/*   Updated: 2025/02/21 16:26:40 by tnakas           ###   ########.fr       */
+/*   Updated: 2025/02/25 12:59:39 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,56 @@ void ScalarConverter::intOverFlow(const std::string& literal)
 
 void ScalarConverter::floatOverFlow(const std::string& literal)
 {
-			std::cout << "char: Not Displayable" << std::endl;
-			std::cout << "int: overflow" << std::endl;
-			std::cout << "float: overflow" << std::endl;
-			double doubleVal = std::stof(literal);
-			std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+			if (literal == "+inff")
+			{
+				std::cout << "char: Not Displayable" << std::endl;
+				std::cout << "int: overflow" << std::endl;
+				std::cout << "float: +inff" << std::endl;
+				std::cout << "float: +inf" << std::endl;
+			}
+			else if (literal == "-inff")
+			{
+				std::cout << "char: Not Displayable" << std::endl;
+				std::cout << "int: overflow" << std::endl;
+				std::cout << "float: -inff" << std::endl;
+				std::cout << "float: -inf" << std::endl;
+			}
+			else if (literal == "nanf")
+			{
+				std::cout << "char: Not Displayable" << std::endl;
+				std::cout << "int: overflow" << std::endl;
+				std::cout << "float: nanf" << std::endl;
+				std::cout << "float: nan" << std::endl;
+			}
+			else if (literal == "+inf")
+			{
+				std::cout << "char: Not Displayable" << std::endl;
+				std::cout << "int: overflow" << std::endl;
+				std::cout << "float: +inff" << std::endl;
+				std::cout << "float: +inf" << std::endl;
+			}
+			else if (literal == "-inf")
+			{
+				std::cout << "char: Not Displayable" << std::endl;
+				std::cout << "int: overflow" << std::endl;
+				std::cout << "float: -inff" << std::endl;
+				std::cout << "float: -inf" << std::endl;
+			}
+			else if (literal == "nan")
+			{
+				std::cout << "char: Not Displayable" << std::endl;
+				std::cout << "int: overflow" << std::endl;
+				std::cout << "float: nanf" << std::endl;
+				std::cout << "float: nan" << std::endl;
+			}
+			else 
+			{
+				std::cout << "char: Not Displayable" << std::endl;
+				std::cout << "int: overflow" << std::endl;
+				std::cout << "float: overflow" << std::endl;
+				double doubleVal = std::stof(literal);
+				std::cout << "double: " << std::fixed << std::setprecision(1) << doubleVal << std::endl;
+			}
 }
 void ScalarConverter::convert(const std::string& literal)
 {
@@ -147,7 +192,7 @@ void ScalarConverter::convert(const std::string& literal)
 	else if(isFloat(literal))
 	{
 		//bigger than float
-		if(std::stod(literal) > max_float || std::stod(literal) < min_float)
+		if(std::stod(literal) > max_float || std::stod(literal) < min_float || literal == "nanf")
 		{
 			floatOverFlow(literal);
 			return ;
@@ -175,7 +220,7 @@ void ScalarConverter::convert(const std::string& literal)
 	}
 	else if(isDouble(literal))
 	{
-		if(std::stod(literal) > max_float || std::stod(literal) < min_float)
+		if(std::stod(literal) > max_float || std::stod(literal) < min_float || literal == "nan")
 		{
 			floatOverFlow(literal);
 			return ;
